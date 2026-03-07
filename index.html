@@ -37,15 +37,48 @@
       border: none;
       display: block;
     }
+    /*
+      【重要】直接アクセス対策
+      初期状態は「表示」にしておき、JavaScriptで「トップウィンドウ」だと
+      判定できた場合のみ「非表示（真っ白）」にするという逆のアプローチを取ります。
+      
+      これにより、SharePointなどのクロスオリジン環境でJSがエラーになっても、
+      初期状態の「表示」が維持されるため、真っ白になるのを防げます。
+    */
+    #dashboard-container {
+      width: 100%;
+      height: 100%;
+      /* 初期状態は「表示」 */
+      display: block;
+    }
   </style>
 </head>
 <body>
-  <!-- srcのURLを実際のLooker StudioのURLに変更してください -->
-  <iframe
-    src="https://lookerstudio.google.com/embed/reporting/6bc9bd35-d796-4727-85c9-343e289a09bf/page/FGflF"
-    allowfullscreen
-    frameborder="0"
-  ></iframe>
+  <div id="dashboard-container">
+    <!-- srcのURLを実際のLooker StudioのURLに変更してください -->
+    <iframe
+      src="https://lookerstudio.google.com/embed/reporting/XXXXXXX"
+      allowfullscreen
+      frameborder="0"
+    ></iframe>
+  </div>
+
+  <script>
+    // ページが直接開かれているか（トップウィンドウか）を判定
+    try {
+      if (window.self === window.top) {
+        // 直接URLを叩いてアクセスされた場合は、コンテナを非表示（真っ白）にする
+        document.getElementById('dashboard-container').style.display = 'none';
+        
+        // 完全に消し去る場合は要素ごと削除
+        // document.body.innerHTML = '';
+      }
+    } catch (e) {
+      // セキュリティエラー（クロスオリジンでtopにアクセスできない）が発生した場合、
+      // 確実に別のドメイン（SharePointなど）のiframe内にいると判断できるため、
+      // 何もしない（初期状態の「表示」のままにする）
+    }
+  </script>
 
   <!--
   ====================================================================
