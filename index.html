@@ -3,7 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Looker Studio Dashboard</title>
+  <!-- 検索エンジンにインデックスさせず、リンクも辿らせず、キャッシュも残させない設定 -->
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+  <meta name="googlebot" content="noindex, nofollow">
+  <!-- タイトルを空にしてブラウザのタブで目立たなくする -->
+  <title></title>
   <style>
     /* 余白をなくし、画面全体に広げる設定 */
     body, html {
@@ -21,16 +25,35 @@
       border: none;
       display: block;
     }
+    /* 初期状態は非表示にする */
+    #dashboard-container {
+      display: none;
+      width: 100%;
+      height: 100%;
+    }
   </style>
 </head>
 <body>
-  <!-- srcのURLを実際のLooker StudioのURLに変更してください -->
-  <iframe
-    src="https://lookerstudio.google.com/embed/reporting/6bc9bd35-d796-4727-85c9-343e289a09bf/page/FGflF"
-    allowfullscreen
-    title="Looker Studio Dashboard"
-    sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
-  ></iframe>
+  <div id="dashboard-container">
+    <!-- srcのURLを実際のLooker StudioのURLに変更してください -->
+    <iframe
+      src="https://lookerstudio.google.com/embed/reporting/XXXXXXX"
+      allowfullscreen
+      sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
+    ></iframe>
+  </div>
+
+  <script>
+    // ページがiframe内で読み込まれているか（トップウィンドウではないか）を判定
+    if (window.self !== window.top) {
+      // iframe内で読み込まれている場合のみ、ダッシュボードを表示する
+      document.getElementById('dashboard-container').style.display = 'block';
+    } else {
+      // 直接URLを叩いてアクセスされた場合は何もしない（真っ白な画面のまま）
+      // 必要に応じて、ここで別のURLにリダイレクトさせることも可能です
+      // window.location.href = "https://example.com";
+    }
+  </script>
 </body>
 </html>
 
