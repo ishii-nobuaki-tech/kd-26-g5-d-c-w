@@ -1,0 +1,5 @@
+{
+  "name": "Looker Studio Embed Wrapper",
+  "description": "A wrapper page for embedding Looker Studio dashboards to be hosted on GitHub Pages.",
+  "requestFramePermissions": []
+}
