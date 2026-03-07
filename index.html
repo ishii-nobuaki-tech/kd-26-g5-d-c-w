@@ -6,6 +6,18 @@
   <!-- 検索エンジンにインデックスさせず、リンクも辿らせず、キャッシュも残させない設定 -->
   <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
   <meta name="googlebot" content="noindex, nofollow">
+  
+  <!-- 
+    【重要】SharePoint（Microsoft 365）での埋め込み許可
+    Edgeなどのブラウザで「login.microsoftonline.com 接続が拒否されました」という
+    エラーが出る場合、サードパーティCookieのブロックや、クロスドメインでの
+    認証（Looker StudioのGoogle認証とSharePointのMicrosoft認証の競合）が原因です。
+    
+    Content-Security-Policy (CSP) を設定し、SharePointのドメインからの
+    フレーム埋め込み（frame-ancestors）を明示的に許可します。
+  -->
+  <meta http-equiv="Content-Security-Policy" content="frame-ancestors 'self' https://*.sharepoint.com https://*.microsoftonline.com;">
+
   <!-- タイトルを空にしてブラウザのタブで目立たなくする -->
   <title></title>
   <style>
@@ -30,7 +42,7 @@
 <body>
   <!-- srcのURLを実際のLooker StudioのURLに変更してください -->
   <iframe
-    src="https://lookerstudio.google.com/embed/reporting/6bc9bd35-d796-4727-85c9-343e289a09bf/page/FGflF"
+    src="https://lookerstudio.google.com/embed/reporting/XXXXXXX"
     allowfullscreen
     frameborder="0"
   ></iframe>
