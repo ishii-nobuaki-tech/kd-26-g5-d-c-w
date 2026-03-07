@@ -21,24 +21,6 @@
   <!-- タイトルを空にしてブラウザのタブで目立たなくする -->
   <title></title>
 
-  <script>
-    /*
-      【重要】直接アクセス対策（改良版）
-      HTMLの描画が始まる前の極めて早い段階で判定を行います。
-      余計なdivタグなどで囲まないため、レイアウト崩れや真っ白になるリスクを最小化します。
-    */
-    try {
-      // window.self と window.parent が同じ場合、iframeの外（直接アクセス）と判定
-      if (window.self === window.parent) {
-        // 直接アクセスの場合は、HTML全体（<html>タグ）を即座に非表示にして真っ白にする
-        document.documentElement.style.display = 'none';
-      }
-    } catch (e) {
-      // クロスオリジン制約でエラーが出た場合は確実にSharePointなどのiframe内なので、
-      // 何もせずそのまま表示させる（初期状態のまま）
-    }
-  </script>
-
   <style>
     /* 余白をなくし、画面全体に広げる設定 */
     body, html {
@@ -48,6 +30,12 @@
       height: 100%;
       overflow: hidden;
       background-color: #ffffff;
+    }
+    /* 初期状態は非表示（真っ白） */
+    #dashboard-container {
+      display: none;
+      width: 100%;
+      height: 100%;
     }
     /* iframeを画面いっぱいに表示し、枠線を消す */
     iframe {
@@ -59,12 +47,49 @@
   </style>
 </head>
 <body>
-  <!-- srcのURLを実際のLooker StudioのURLに変更してください -->
-  <iframe
-    src="https://lookerstudio.google.com/embed/reporting/6bc9bd35-d796-4727-85c9-343e289a09bf/page/FGflF"
-    allowfullscreen
-    frameborder="0"
+  <div id="dashboard-container">
+    <!-- srcのURLを実際のLooker StudioのURLに変更してください -->
+    <iframe
+      src="https://lookerstudio.google.com/embed/reporting/XXXXXXX"
+      allowfullscreen
+      frameborder="0"
+    ></iframe>
+  </div>
+
+  <script>
+    /*
+      【確実な直接アクセス対策：合言葉（URLパラメータ）方式】
+      SharePointの特殊なiframe環境では、セキュリティの都合上
+      「自分がiframeの中にいる」と正しく判定できないケースがあります。
+      そのため、URLに特定の「合言葉（?key=sp）」が含まれている場合のみ
+      ダッシュボードを表示する、という最も確実な方式に変更しました。
+    */
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('key') === 'sp') {
+      // 合言葉が含まれていれば表示する
+      document.getElementById('dashboard-container').style.display = 'block';
+    }
+  </script>
+
+  <!--
+  ====================================================================
+  SharePointの「埋め込み」Webパーツ用 最適化コード
+  ====================================================================
+  以下のコードをSharePointの「埋め込み」Webパーツに貼り付けてください。
+  ※ src="..." の部分は、ご自身のGitHub PagesのURLに変更してください。
+  ※ URLの末尾に「?key=sp」がついていることが非常に重要です！
+
+  <iframe 
+    src="https://<あなたのユーザー名>.github.io/<リポジトリ名>/?key=sp"
+    width="100%" 
+    height="800" 
+    frameborder="0" 
+    scrolling="no" 
+    allowfullscreen 
+    loading="eager"
   ></iframe>
+  ====================================================================
+  -->
 </body>
 </html>
 
