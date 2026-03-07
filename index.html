@@ -37,7 +37,7 @@
   <div id="dashboard-container">
     <!-- srcのURLを実際のLooker StudioのURLに変更してください -->
     <iframe
-      src="https://lookerstudio.google.com/embed/reporting/XXXXXXX"
+      src="https://lookerstudio.google.com/embed/reporting/6bc9bd35-d796-4727-85c9-343e289a09bf/page/FGflF"
       allowfullscreen
       frameborder="0"
     ></iframe>
@@ -62,33 +62,6 @@
       // 直接URLを叩いてアクセスされた場合は何もしない（真っ白な画面のまま）
     }
   </script>
-
-  <!--
-  ====================================================================
-  SharePointの「埋め込み」Webパーツ用 最適化コード
-  ====================================================================
-  以下のコードをSharePointの「埋め込み」Webパーツに貼り付けてください。
-  ※ src="..." の部分は、ご自身のGitHub PagesのURLに変更してください。
-
-  <iframe 
-    src="https://<あなたのユーザー名>.github.io/<リポジトリ名>/"
-    width="100%" 
-    height="800" 
-    frameborder="0" 
-    scrolling="no" 
-    allowfullscreen 
-    loading="eager"
-  ></iframe>
-
-  【修正のポイント】
-  1. sandbox属性の削除
-     Looker Studioは複雑なスクリプトや認証、Cookieを使用するため、
-     sandbox属性で制限をかけると正常に描画されず真っ白になる原因となります。
-  2. クロスオリジン判定の修正
-     SharePointとGitHub Pagesでドメインが異なるため、単純な判定では
-     セキュリティエラーでスクリプトが停止してしまう問題を修正しました。
-  ====================================================================
-  -->
 </body>
 </html>
 
